@@ -1,24 +1,28 @@
-﻿// Задача 36: Задайте одномерный массив, заполненный случайными числами. 
-// Найдите сумму элементов, стоящих на нечётных позициях.
-// [3, 7, 23, 12] -> 19
-// [-4, -6, 89, 6] -> 0
+﻿// Задача 38: Задайте массив вещественных чисел. 
+// Найдите разницу между максимальным и минимальным элементов массива.
+// [3.22, 4.2, 1.15, 77.15, 65.2] => 77.15 - 1.15 = 76
 
+
+// создание массива вещественных чисел
+double[] doubles = new double[5];
+Random rnd = new Random();
+int deviation = 10;
+for (int i = 0; i < doubles.Length; i++)
+{
+    doubles[i] = Math.Round((rnd.NextDouble()- 0.5)*2*deviation, 2 );
+}
+
+
+// ввод массива
 int InputNum(string message)
 {
     Console.Write(message);
     return int.Parse(Console.ReadLine()!);
 }
 
-void FillArray(int [] newArray)
-{
-    for (int i = 0; i < newArray.Length; i++)
-    {
-        newArray[i] = new Random().Next(-10, 10);
-    }
 
-}
-
-void PrintArray(int[] newArray)
+// распечатка массива
+void PrintArray(double[] newArray)
 {   Console.WriteLine("Ваш массив:");
     for (int i = 0; i < newArray.Length; i++)
     {
@@ -26,24 +30,26 @@ void PrintArray(int[] newArray)
     }
 }
 
-int Summ(int[] newArray)
+double Raznica(double[] newArray)
 {
-    int summa = 0;
+    double raznica = 0;
+    double min = 0;
+    double max = 0;
     for (int i = 0; i < newArray.Length; i++)
     {
-        if (i%2 != 0)
-        summa = summa + newArray[i];
+        if (newArray[i] < min)
+        min = newArray[i];
+        if (newArray[i] > max)
+        max = newArray[i];
+    raznica = max - min;
     } 
-    Console.WriteLine($"Сумма чисел на нечетных позициях {summa}");
-    return summa;
+    Console.WriteLine($"Разница между максимальным и минимальным элементом массива {raznica}");
+    return raznica;
 }
 
-int size = InputNum("Введите размер массива: ");
-int[] newArray = new int[size];
-
-FillArray(newArray);
 Console.WriteLine(" ");
-PrintArray(newArray);
+PrintArray(doubles);
 Console.WriteLine(" ");
+Raznica(doubles);
 
-Summ(newArray);
+
